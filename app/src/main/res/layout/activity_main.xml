@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/go_to_flyover"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/roundedbutton"
+        android:text="Check Flyover Times"
+        android:textAllCaps="false"
+        android:textColor="#E7DFDF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iss_map"
+        app:layout_constraintTop_toBottomOf="@+id/iss_map" />
+
+    <Button
+        android:id="@+id/go_to_astros"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/roundedbutton"
+        android:text="See who's on board"
+        android:textAllCaps="false"
+        android:textColor="#E7DFDF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iss_map"
+        app:layout_constraintTop_toBottomOf="@+id/iss_map" />
+
+    <TextView
+        android:id="@+id/long_disp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="43dp"
+        android:text="Longitude Display"
+        app:layout_constraintBottom_toTopOf="@+id/iss_map"
+        app:layout_constraintStart_toStartOf="@+id/longitude_label"
+        app:layout_constraintTop_toBottomOf="@+id/longitude_label" />
+
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="183dp"
+        android:text="Welcome to ISS Locator"
+        android:textColor="#6BAEC5"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/iss_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lat_disp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Latitude Display"
+        app:layout_constraintBottom_toTopOf="@+id/longitude_label"
+        app:layout_constraintStart_toStartOf="@+id/latitude_label"
+        app:layout_constraintTop_toBottomOf="@+id/latitude_label" />
+
+    <TextView
+        android:id="@+id/latitude_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="101dp"
+        android:layout_marginBottom="7dp"
+        android:text="Current Latitude:"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/lat_disp"
+        app:layout_constraintStart_toStartOf="@+id/app_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/longitude_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:text="Current Longitude:"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/long_disp"
+        app:layout_constraintStart_toStartOf="@+id/lat_disp"
+        app:layout_constraintTop_toBottomOf="@+id/lat_disp" />
+
+    <fragment
+        android:id="@+id/iss_map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="91dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
