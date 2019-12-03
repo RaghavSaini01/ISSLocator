@@ -2,6 +2,7 @@ package com.example.isslocator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -57,16 +58,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         toFlyover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "This button will go to the flyover page",
-                            Toast.LENGTH_LONG).show();
+                Intent toPassOver = new Intent(MainActivity.this, PassOverISSActivity.class);
+                startActivity(toPassOver);
             }
         });
 
         toAstros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "This button will go to the astros page",
-                        Toast.LENGTH_LONG).show();
+                Intent toAstroInfo = new Intent(MainActivity.this, AstroInfoActivity.class);
+                startActivity(toAstroInfo);
             }
         });
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         runnable = new Runnable() {
             @Override
             public void run() {
-                getLocation();
+                updateLocation();
 
                 handler.postDelayed(runnable, 5000);
             }
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void getLocation() {
+    private void updateLocation() {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -108,14 +109,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             mainMap.addMarker(new MarkerOptions().position(loc));
 
                         } catch (JSONException j) {
-                            Toast.makeText(MainActivity.this, "That failed", Toast.LENGTH_LONG);
-                            Log.d("Error", "Problem w/ Response?");
+                            Toast.makeText(MainActivity.this, "JSON Field parsed incorrectly", Toast.LENGTH_LONG);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "That failed", Toast.LENGTH_LONG);
+                Toast.makeText(MainActivity.this, "Request failed; check internet connection", Toast.LENGTH_LONG);
             }
         });
 
