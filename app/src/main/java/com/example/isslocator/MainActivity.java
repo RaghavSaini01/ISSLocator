@@ -49,12 +49,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         longText = findViewById(R.id.long_disp);
         queue = Volley.newRequestQueue(MainActivity.this);
 
-        issMap = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.iss_map);
-        issMap.getMapAsync(this);
-
         toFlyover = findViewById(R.id.go_to_flyover);
         toAstros = findViewById(R.id.go_to_astros);
 
+        issMap = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.iss_map);
+        issMap.getMapAsync(this);
+
+        toFlyover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "This button will go to the flyover page",
+                            Toast.LENGTH_LONG).show();
+            }
+        });
+
+        toAstros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "This button will go to the astros page",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mainMap = googleMap;
         handler = new Handler();
 
         runnable = new Runnable() {
@@ -68,25 +89,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         handler.post(runnable);
 
-        toFlyover.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        toAstros.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mainMap = googleMap;
     }
 
     private void getLocation() {
