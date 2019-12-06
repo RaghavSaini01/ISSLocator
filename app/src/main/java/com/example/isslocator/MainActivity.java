@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mainMap = googleMap;
+
         handler = new Handler();
 
         runnable = new Runnable() {
@@ -109,13 +110,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             mainMap.addMarker(new MarkerOptions().position(loc));
 
                         } catch (JSONException j) {
-                            Toast.makeText(MainActivity.this, "JSON Field parsed incorrectly", Toast.LENGTH_LONG);
+                            Toast.makeText(MainActivity.this, "JSON Field parsed incorrectly", Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Request failed; check internet connection", Toast.LENGTH_LONG);
+                Toast.makeText(MainActivity.this, "Request failed; check internet connection", Toast.LENGTH_LONG).show();
             }
         });
 
