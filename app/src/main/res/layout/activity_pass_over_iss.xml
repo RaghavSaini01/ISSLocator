@@ -51,7 +51,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="23dp"
-        android:text="Calculate next Flyby:"
+        android:text="Calculate next Flyover:"
         android:textColor="#6BAEC5"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
