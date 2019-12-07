@@ -44,7 +44,7 @@ public class FlyOverRecyclerAdapter extends RecyclerView.Adapter<FlyOverRecycler
     public void onBindViewHolder(FlyOverRecyclerAdapter.MyViewHolder holder, int position) {
 
         holder.time.setText("Time: " + flyOverDataList.get(position).getRiseTime());
-        holder.duration.setText("Age: " + flyOverDataList.get(position).getDuration());
+        holder.duration.setText("Duration: " + flyOverDataList.get(position).getDuration());
     }
 
     @Override

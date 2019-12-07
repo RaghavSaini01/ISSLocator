@@ -4,18 +4,14 @@ import java.util.Date;
 
 public class FlyOverData {
     private String duration;
-    private Date riseTime;
+    private String riseTime;
 
-    public FlyOverData(String aDuration, Date aRiseTime) {
-        duration = aDuration;
-        riseTime = aRiseTime;
-    }
 
     public String getDuration() {
         return duration;
     }
 
-    public Date getRiseTime() {
+    public String getRiseTime() {
         return riseTime;
     }
 
@@ -23,7 +19,7 @@ public class FlyOverData {
         duration = aDuration;
     }
 
-    public void setRiseTime(Date aRiseTime) {
+    public void setRiseTime(String aRiseTime) {
         riseTime = aRiseTime;
     }
 }
