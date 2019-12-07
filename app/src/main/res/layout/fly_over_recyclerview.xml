@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="false"
         android:layout_margin="5dp"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="25dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mentorCardLayout"
@@ -30,7 +30,7 @@
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:text="TextView"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"

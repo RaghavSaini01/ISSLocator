@@ -5,11 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -40,7 +38,7 @@ public class FlyOverISSActivity extends AppCompatActivity {
     private FlyOverRecyclerAdapter myAdapter;
     private RecyclerView flyOverRecycler;
     private List<FlyOverData> flyOverData;
-    private String URL = "http://api.open-notify.org/iss-pass.json?lat=LAT&lon=LON";
+    private final String URL = "http://api.open-notify.org/iss-pass.json?lat=LAT&lon=LON";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,12 +83,14 @@ public class FlyOverISSActivity extends AppCompatActivity {
         String urlToUse = URL.substring(0, URL.indexOf("LAT")) + latitude +
                 URL.substring(URL.indexOf("&"), URL.indexOf("LON")) + longitude;
 
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlToUse, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray flyOverList = response.getJSONArray("response");
+                            flyOverData = new ArrayList<>(flyOverList.length());
 
                             for (int i = 0; i < flyOverList.length(); i++) {
                                 JSONObject data = flyOverList.getJSONObject(i);
@@ -104,11 +104,11 @@ public class FlyOverISSActivity extends AppCompatActivity {
                                 flyOver.setRiseTime(itemDateStr);
 
                                 int passDuration = data.getInt("duration");
-                                String formatDuration = (passDuration / 60) + "min " +
-                                        (passDuration % 60) + "sec";
+                                String formatDuration = (passDuration / 60) + " minutes, " +
+                                        (passDuration % 60) + " seconds";
                                 flyOver.setDuration(formatDuration);
 
-                                flyOverData.add(flyOver);
+                                flyOverData.add(i, flyOver);
 
                             }
                         } catch (JSONException j) {
