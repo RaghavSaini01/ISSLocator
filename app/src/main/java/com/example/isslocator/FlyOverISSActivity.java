@@ -26,6 +26,11 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
+import java.util.TimeZone;
+
+import static java.util.TimeZone.getDefault;
+import static java.util.TimeZone.getTimeZone;
 
 public class FlyOverISSActivity extends AppCompatActivity {
 
@@ -45,7 +50,7 @@ public class FlyOverISSActivity extends AppCompatActivity {
         longEdit = findViewById(R.id.long_edit);
         calcFlyOver = findViewById(R.id.calc_flyover_button);
         flyOverRecycler = findViewById(R.id.fly_over_recycler);
-        flyOverData = new ArrayList<FlyOverData>(0);
+        flyOverData = new ArrayList<>(0);
 
         queue = Volley.newRequestQueue(FlyOverISSActivity.this);
 
@@ -53,19 +58,25 @@ public class FlyOverISSActivity extends AppCompatActivity {
         calcFlyOver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double latToCalc = Double.parseDouble(latEdit.getText().toString());
-                double longToCalc = Double.parseDouble(longEdit.getText().toString());
-                System.out.println(latToCalc);
-                System.out.println(longToCalc);
+                try {
+                    double latToCalc = Double.parseDouble(latEdit.getText().toString());
+                    double longToCalc = Double.parseDouble(longEdit.getText().toString());
 
-                if (latToCalc < -90.0 || latToCalc > 90.0
-                        || longToCalc < -90.0 || longToCalc > 90.0) {
-                    Toast.makeText(FlyOverISSActivity.this, "Incorrect Latitude or Longitude Value:" +
-                            " both must be within -90.0 and 90.0", Toast.LENGTH_LONG).show();
-                } else {
-                    updateFlyoverList(latToCalc, longToCalc);
-                    setUpRecycler();
+                    if (!((latToCalc >= -90.0 && latToCalc <= 90.0)
+                            && (longToCalc >= -180.0 && longToCalc <= 80.0))) {
+                        Toast.makeText(FlyOverISSActivity.this, "Incorrect Latitude or Longitude Value:" +
+                                " latitude is between -90 and 90 and longitude between " +
+                                "-180 and 80", Toast.LENGTH_LONG).show();
+                    } else {
+                        updateFlyoverList(latToCalc, longToCalc);
+                        setUpRecycler();
+                    }
+
+                } catch (Exception e) {
+                    Toast.makeText(FlyOverISSActivity.this, "Invalid inputs, try again!",
+                            Toast.LENGTH_LONG).show();
                 }
+
             }
         });
     }
@@ -86,8 +97,10 @@ public class FlyOverISSActivity extends AppCompatActivity {
                                 FlyOverData flyOver = new FlyOverData();
 
                                 int unixTime = data.getInt("risetime");
-                                java.util.Date d = new java.util.Date(unixTime * 1000);
-                                String itemDateStr = d.toString();
+                                Date d = new Date(unixTime * 1000L);
+                                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd, HH:mm");
+                                sdf.setTimeZone(getDefault());
+                                String itemDateStr = sdf.format(d);
                                 flyOver.setRiseTime(itemDateStr);
 
                                 int passDuration = data.getInt("duration");
@@ -119,6 +132,6 @@ public class FlyOverISSActivity extends AppCompatActivity {
         myAdapter = new FlyOverRecyclerAdapter(this, flyOverData);
         flyOverRecycler.setAdapter(myAdapter);
         flyOverRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
-                LinearLayoutManager.VERTICAL, false));
+                LinearLayoutManager.HORIZONTAL, false));
     }
 }
