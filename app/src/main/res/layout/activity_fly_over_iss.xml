@@ -11,10 +11,11 @@
         android:id="@+id/calc_flyover_button"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="92dp"
         android:background="@drawable/roundedbutton"
         android:text="Calculate Time of Flyover"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/long_edit" />
 
@@ -64,4 +65,15 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calc_flyover_button" />
+
+    <Spinner
+        android:id="@+id/num_passes"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/fly_over_spinner_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/long_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

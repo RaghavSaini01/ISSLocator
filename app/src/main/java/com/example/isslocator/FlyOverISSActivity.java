@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,12 +28,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-import java.util.TimeZone;
 
 import static java.util.TimeZone.getDefault;
-import static java.util.TimeZone.getTimeZone;
 
-public class FlyOverISSActivity extends AppCompatActivity {
+public class FlyOverISSActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText latEdit, longEdit;
     private Button calcFlyOver;
@@ -38,6 +39,7 @@ public class FlyOverISSActivity extends AppCompatActivity {
     private FlyOverRecyclerAdapter myAdapter;
     private RecyclerView flyOverRecycler;
     private List<FlyOverData> flyOverData;
+    private Spinner numPasses;
     private final String URL = "http://api.open-notify.org/iss-pass.json?lat=LAT&lon=LON";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,23 @@ public class FlyOverISSActivity extends AppCompatActivity {
         longEdit = findViewById(R.id.long_edit);
         calcFlyOver = findViewById(R.id.calc_flyover_button);
         flyOverRecycler = findViewById(R.id.fly_over_recycler);
-        flyOverData = new ArrayList<>(0);
+        flyOverData = new ArrayList<>();
+        numPasses = findViewById(R.id.num_passes);
+
+        List<String>passOptions = new ArrayList<>();
+        passOptions.add("Select number of flyovers (Optional)");
+
+        for (int i = 0; i < 100; i++) {
+            passOptions.add(i + 1 + "");
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, passOptions);
+
+        numPasses.setAdapter(arrayAdapter);
+        numPasses.setSelection(0);
+        numPasses.setOnItemSelectedListener(this);
+
 
         queue = Volley.newRequestQueue(FlyOverISSActivity.this);
 
@@ -119,7 +137,7 @@ public class FlyOverISSActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(FlyOverISSActivity.this, "Could not make requst from server: " +
+                Toast.makeText(FlyOverISSActivity.this, "Could not make request from server: " +
                         "please check internet connection", Toast.LENGTH_LONG).show();
             }
         });
@@ -133,5 +151,20 @@ public class FlyOverISSActivity extends AppCompatActivity {
         flyOverRecycler.setAdapter(myAdapter);
         flyOverRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        if (pos > 0) {
+            String retrieved = parent.getItemAtPosition(pos).toString();
+            Toast.makeText(FlyOverISSActivity.this, retrieved + " Selected", Toast.LENGTH_LONG).show();
+        }
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

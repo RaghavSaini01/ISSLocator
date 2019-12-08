@@ -1,6 +1,5 @@
 package com.example.isslocator;
 
-import java.util.Date;
 
 public class FlyOverData {
     private String duration;
