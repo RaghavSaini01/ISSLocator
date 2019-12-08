@@ -39,6 +39,7 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
     private FlyOverRecyclerAdapter myAdapter;
     private RecyclerView flyOverRecycler;
     private List<FlyOverData> flyOverData;
+    private boolean numPassesDefault = true;
     private Spinner numPasses;
     private final String URL = "http://api.open-notify.org/iss-pass.json?lat=LAT&lon=LON";
     @Override
@@ -54,7 +55,7 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
         numPasses = findViewById(R.id.num_passes);
 
         List<String>passOptions = new ArrayList<>();
-        passOptions.add("Select number of flyovers (Optional)");
+        passOptions.add("Number of flyovers to calculate (Optional)");
 
         for (int i = 0; i < 100; i++) {
             passOptions.add(i + 1 + "");
@@ -66,6 +67,7 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
         numPasses.setAdapter(arrayAdapter);
         numPasses.setSelection(0);
         numPasses.setOnItemSelectedListener(this);
+
 
 
         queue = Volley.newRequestQueue(FlyOverISSActivity.this);
@@ -97,10 +99,30 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
         });
     }
 
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        if (pos > 0 && pos != 5) {
+            numPassesDefault = false;
+        } else {
+            numPassesDefault = true;
+        }
+        numPasses.setSelection(pos);
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
+
     public void updateFlyoverList(double latitude, double longitude) {
         String urlToUse = URL.substring(0, URL.indexOf("LAT")) + latitude +
                 URL.substring(URL.indexOf("&"), URL.indexOf("LON")) + longitude;
 
+        if (!numPassesDefault) {
+            urlToUse =  URL.substring(0, URL.indexOf("LAT")) + latitude +
+                    URL.substring(URL.indexOf("&"), URL.indexOf("LON")) + longitude + "&n="
+                    + numPasses.getSelectedItem().toString();
+        }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlToUse, null,
                 new Response.Listener<JSONObject>() {
@@ -153,18 +175,4 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
                 LinearLayoutManager.HORIZONTAL, false));
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        if (pos > 0) {
-            String retrieved = parent.getItemAtPosition(pos).toString();
-            Toast.makeText(FlyOverISSActivity.this, retrieved + " Selected", Toast.LENGTH_LONG).show();
-        }
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
