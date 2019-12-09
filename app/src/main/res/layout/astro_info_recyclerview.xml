@@ -12,6 +12,8 @@
         android:layout_height="110dp"
         android:layout_margin="5dp"
         app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="#37474f"
+        app:cardElevation="50dp"
         app:cardUseCompatPadding="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name here"
                 android:textSize="15dp"
-                android:textColor="#2386ff"
+                android:textColor="#64ffda"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,7 +42,7 @@
                 android:layout_marginTop="40dp"
                 android:autoLink="web"
                 android:text="Link here"
-                android:textColor="#ffbf5e"
+                android:textColor="#ffffff"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
