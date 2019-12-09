@@ -13,7 +13,7 @@
         android:layout_height="100dp"
         app:cardUseCompatPadding="false"
         android:layout_margin="5dp"
-        app:cardBackgroundColor="#78909c"
+        app:cardBackgroundColor="#37474f"
         app:cardCornerRadius="30dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
