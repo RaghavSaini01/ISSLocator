@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recyclerElementHolder"
+    android:id="@+id/astro_recycler_element_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:cardUseCompatPadding="false"
+        android:layout_height="120dp"
         android:layout_margin="5dp"
-        app:cardCornerRadius="30dp">
+        app:cardCornerRadius="30dp"
+        app:cardUseCompatPadding="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mentorCardLayout"
@@ -22,29 +21,26 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/time"
-            app:layout_constraintStart_toStartOf="@+id/time">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/duration"
+                android:id="@+id/astro_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name here"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/astro_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
-                android:text="TextView"
+                android:text="Link here"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -11,6 +11,8 @@
         android:id="@+id/astro_info_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="28dp"
         android:text="Currently Onboard the ISS:"
         android:textColor="#6BAEC5"
@@ -22,11 +24,18 @@
         android:id="@+id/number_astros_disp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="104dp"
         android:text="Number of Astronauts:"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/astro_info_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number_astros_disp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

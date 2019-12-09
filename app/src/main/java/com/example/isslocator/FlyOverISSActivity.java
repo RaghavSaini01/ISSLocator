@@ -87,6 +87,7 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
                                 "-180 and 80", Toast.LENGTH_LONG).show();
                     } else {
                         updateFlyoverList(latToCalc, longToCalc);
+                        System.out.println(flyOverData.size());
                         setUpRecycler();
                     }
 
