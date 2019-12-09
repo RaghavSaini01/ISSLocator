@@ -34,7 +34,7 @@
                 android:layout_marginTop="60dp"
                 android:text="TextView"
                 android:textSize="20dp"
-                android:textColor="#ffbf5e"
+                android:textColor="#ffffff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textSize="20dp"
-                android:textColor="#64ffda"
+                android:textColor="#ffffff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
