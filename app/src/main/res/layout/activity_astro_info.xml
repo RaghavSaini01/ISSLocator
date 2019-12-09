@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
+    android:background="#37474f"
     tools:context=".AstroInfoActivity">
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="28dp"
         android:text="Currently Onboard the ISS:"
-        android:textColor="#6BAEC5"
+        android:textColor="#64ffda"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +28,7 @@
         android:layout_marginTop="104dp"
         android:text="Number of Astronauts:"
         android:textSize="25dp"
+        android:textColor="#ffbf5e"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

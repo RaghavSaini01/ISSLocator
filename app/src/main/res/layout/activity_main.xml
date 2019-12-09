@@ -5,7 +5,7 @@
     android:id="@+id/main_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
+    android:background="#37474f"
     tools:context=".MainActivity">
 
     <Button
@@ -43,6 +43,7 @@
         android:layout_marginBottom="43dp"
         android:textSize="20dp"
         android:text="Longitude Display"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toTopOf="@+id/iss_map"
         app:layout_constraintStart_toStartOf="@+id/longitude_label"
         app:layout_constraintTop_toBottomOf="@+id/longitude_label" />
@@ -54,7 +55,7 @@
         android:layout_marginTop="23dp"
         android:layout_marginBottom="183dp"
         android:text="ISS Tracker Pro"
-        android:textColor="#6BAEC5"
+        android:textColor="#64ffda"
         android:textSize="45dp"
         app:layout_constraintBottom_toTopOf="@+id/iss_map"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +70,7 @@
         android:layout_marginBottom="12dp"
         android:text="Latitude Display"
         android:textSize="20dp"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toTopOf="@+id/longitude_label"
         app:layout_constraintStart_toStartOf="@+id/latitude_label"
         app:layout_constraintTop_toBottomOf="@+id/latitude_label" />
@@ -81,6 +83,7 @@
         android:layout_marginBottom="7dp"
         android:text="Current Latitude:"
         android:textSize="12dp"
+        android:textColor="#ffd966"
         app:layout_constraintBottom_toTopOf="@+id/lat_disp"
         app:layout_constraintStart_toStartOf="@+id/app_title"
         app:layout_constraintTop_toTopOf="parent" />
@@ -92,6 +95,7 @@
         android:layout_marginBottom="7dp"
         android:text="Current Longitude:"
         android:textSize="12dp"
+        android:textColor="#ffd966"
         app:layout_constraintBottom_toTopOf="@+id/long_disp"
         app:layout_constraintStart_toStartOf="@+id/lat_disp"
         app:layout_constraintTop_toBottomOf="@+id/lat_disp" />
