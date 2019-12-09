@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E5E5E5"
+    android:background="#37474f"
     tools:context=".FlyOverISSActivity">
 
     <Button
@@ -27,7 +27,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="21dp"
         android:ems="10"
+        android:textColor="#ffffff"
         android:hint="Enter Longitude of Location:"
+        android:textColorHint="#ffffff"
         android:inputType="numberSigned|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lat_edit" />
@@ -40,7 +42,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="28dp"
         android:ems="10"
+        android:textColor="#ffffff"
         android:hint="Enter Latitude of Location:"
+        android:textColorHint="#ffffff"
         android:inputType="numberSigned|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flyby_page_header" />
@@ -53,7 +57,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="23dp"
         android:text="Calculate next Flyover:"
-        android:textColor="#6BAEC5"
+        android:textColor="#64ffda"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,6 +77,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:textColor="#ffffff"
         android:background="@drawable/fly_over_spinner_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/long_edit" />
