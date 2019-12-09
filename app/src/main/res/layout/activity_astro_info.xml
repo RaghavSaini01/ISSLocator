@@ -35,7 +35,7 @@
         android:id="@+id/astro_info_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number_astros_disp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
