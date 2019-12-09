@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name here"
                 android:textSize="15dp"
+                android:textColor="#2386ff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,6 +40,7 @@
                 android:layout_marginTop="40dp"
                 android:autoLink="web"
                 android:text="Link here"
+                android:textColor="#ffbf5e"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
