@@ -13,6 +13,7 @@
         android:layout_height="100dp"
         app:cardUseCompatPadding="false"
         android:layout_margin="5dp"
+        app:cardBackgroundColor="#78909c"
         app:cardCornerRadius="30dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textSize="20dp"
-                android:textColor="#2386ff"
+                android:textColor="#64ffda"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
