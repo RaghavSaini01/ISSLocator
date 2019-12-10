@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -107,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             mainMap.clear();
                             LatLng loc = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
                             mainMap.addMarker(new MarkerOptions().position(loc));
+
+                            mainMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
 
                         } catch (JSONException j) {
                             Toast.makeText(MainActivity.this, "JSON Field parsed incorrectly", Toast.LENGTH_LONG).show();
