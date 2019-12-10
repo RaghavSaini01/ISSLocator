@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="spinnerTheme">
+        <item name="android:textColor">#ffbf5e</item>
+        <item name="android:background">#37474f</item>
+    </style>
+
 </resources>
