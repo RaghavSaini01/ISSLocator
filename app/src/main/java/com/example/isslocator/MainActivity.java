@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void run() {
                 updateLocation();
 
-                handler.postDelayed(runnable, 5000);
+                handler.postDelayed(runnable, 2500);
             }
         };
 
