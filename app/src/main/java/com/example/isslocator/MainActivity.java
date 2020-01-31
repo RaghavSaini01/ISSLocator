@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void run() {
                 updateLocation();
-
                 handler.postDelayed(runnable, 2500);
             }
         };

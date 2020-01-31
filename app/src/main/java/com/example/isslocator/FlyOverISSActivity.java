@@ -162,7 +162,6 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
                 LinearLayoutManager.HORIZONTAL, false));
     }
 
-
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         if (pos > 0 && pos != 5) {
