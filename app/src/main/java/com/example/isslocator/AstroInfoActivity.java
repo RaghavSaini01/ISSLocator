@@ -44,7 +44,7 @@ public class AstroInfoActivity extends AppCompatActivity {
         numRequestQueue = Volley.newRequestQueue(this);
         namesRequestQueue = Volley.newRequestQueue(this);
 
-        updateAstroNumInfo();
+        updateNumAstros();
         updateAstroNameInfo();
 
         final Handler handler = new Handler();
@@ -58,15 +58,15 @@ public class AstroInfoActivity extends AppCompatActivity {
 
     }
 
-    private void updateAstroNumInfo() {
+    private void updateNumAstros() {
         JsonObjectRequest numsJsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String numAstroStr;
+                        String numAstros;
                         try {
-                            numAstroStr = response.getInt("number") + "";
-                            numAstros.setText(numAstroStr + " astronauts:");
+                            numAstros = response.getInt("number") + "";
+                            AstroInfoActivity.this.numAstros.setText(numAstros + " astronauts:");
                         } catch (JSONException j) {
                             Toast.makeText(AstroInfoActivity.this, "JSON Field parsed incorrectly", Toast.LENGTH_LONG).show();
                         }
