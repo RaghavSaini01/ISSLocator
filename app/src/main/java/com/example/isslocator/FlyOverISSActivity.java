@@ -38,10 +38,11 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
     private RequestQueue queue;
     private FlyOverRecyclerAdapter myAdapter;
     private RecyclerView flyOverRecycler;
-    private List<FlyOverData> flyOverData;
+    private List<FlyOverData> flyOverObjectList;
     private boolean numPassesDefault = true;
-    private Spinner numPasses;
+    private Spinner numSelectedPasses;
     private final String URL = "http://api.open-notify.org/iss-pass.json?lat=LAT&lon=LON";
+    private final String extension = URL.substring(URL.indexOf("&"), URL.indexOf("LON"));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +52,8 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
         longEdit = findViewById(R.id.long_edit);
         calcFlyOver = findViewById(R.id.calc_flyover_button);
         flyOverRecycler = findViewById(R.id.fly_over_recycler);
-        flyOverData = new ArrayList<>();
-        numPasses = findViewById(R.id.num_passes);
+        flyOverObjectList = new ArrayList<>();
+        numSelectedPasses = findViewById(R.id.num_passes);
 
         List<String>passOptions = new ArrayList<>();
         passOptions.add("Number of flyovers to calculate (Optional)");
@@ -64,15 +65,12 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, passOptions);
 
-        numPasses.setAdapter(arrayAdapter);
-        numPasses.setSelection(0);
-        numPasses.setOnItemSelectedListener(this);
-
+        numSelectedPasses.setAdapter(arrayAdapter);
+        numSelectedPasses.setSelection(0);
+        numSelectedPasses.setOnItemSelectedListener(this);
 
 
         queue = Volley.newRequestQueue(FlyOverISSActivity.this);
-
-
         calcFlyOver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,17 +80,18 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
 
                     if (!((latToCalc >= -90.0 && latToCalc <= 90.0)
                             && (longToCalc >= -180.0 && longToCalc <= 80.0))) {
-                        Toast.makeText(FlyOverISSActivity.this, "Incorrect Latitude or Longitude Value:" +
+                        Toast.makeText(FlyOverISSActivity.this,
+                                "Incorrect Latitude or Longitude Value:" +
                                 " latitude is between -90 and 90 and longitude between " +
                                 "-180 and 80", Toast.LENGTH_LONG).show();
                     } else {
                         updateFlyoverList(latToCalc, longToCalc);
-                        System.out.println(flyOverData.size());
                         setUpRecycler();
                     }
 
-                } catch (Exception e) {
-                    Toast.makeText(FlyOverISSActivity.this, "Invalid inputs, try again!",
+                } catch (NumberFormatException e) {
+                    Toast.makeText(FlyOverISSActivity.this,
+                            "Invalid inputs, try again!",
                             Toast.LENGTH_LONG).show();
                 }
 
@@ -100,56 +99,44 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
         });
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        if (pos > 0 && pos != 5) {
-            numPassesDefault = false;
-        } else {
-            numPassesDefault = true;
-        }
-        numPasses.setSelection(pos);
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
-
     public void updateFlyoverList(double latitude, double longitude) {
         String urlToUse = URL.substring(0, URL.indexOf("LAT")) + latitude +
-                URL.substring(URL.indexOf("&"), URL.indexOf("LON")) + longitude;
+                extension + longitude;
 
         if (!numPassesDefault) {
             urlToUse =  URL.substring(0, URL.indexOf("LAT")) + latitude +
-                    URL.substring(URL.indexOf("&"), URL.indexOf("LON")) + longitude + "&n="
-                    + numPasses.getSelectedItem().toString();
+                    extension + longitude + "&n="
+                    + numSelectedPasses.getSelectedItem().toString();
         }
+        makeFlyoverRequest(urlToUse);
+    }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlToUse, null,
+    public void makeFlyoverRequest(String url) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray flyOverList = response.getJSONArray("response");
-                            flyOverData = new ArrayList<>(flyOverList.length());
+                            flyOverObjectList = new ArrayList<>(flyOverList.length());
 
                             for (int i = 0; i < flyOverList.length(); i++) {
-                                JSONObject data = flyOverList.getJSONObject(i);
-                                FlyOverData flyOver = new FlyOverData();
+                                JSONObject flyOverResponse = flyOverList.getJSONObject(i);
+                                FlyOverData flyOverObject = new FlyOverData();
 
-                                int unixTime = data.getInt("risetime");
+                                int unixTime = flyOverResponse.getInt("risetime");
                                 Date d = new Date(unixTime * 1000L);
                                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd, HH:mm");
                                 sdf.setTimeZone(getDefault());
                                 String itemDateStr = sdf.format(d);
-                                flyOver.setRiseTime(itemDateStr);
+                                flyOverObject.setRiseTime(itemDateStr);
 
-                                int passDuration = data.getInt("duration");
+                                int passDuration = flyOverResponse.getInt("duration");
                                 String formatDuration = (passDuration / 60) + " minutes, " +
                                         (passDuration % 60) + " seconds";
-                                flyOver.setDuration(formatDuration);
+                                flyOverObject.setDuration(formatDuration);
 
-                                flyOverData.add(i, flyOver);
+                                flyOverObjectList.add(i, flyOverObject);
 
                             }
                         } catch (JSONException j) {
@@ -166,14 +153,28 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
         });
 
         queue.add(jsonObjectRequest);
-
     }
 
     public void setUpRecycler() {
-        myAdapter = new FlyOverRecyclerAdapter(this, flyOverData);
+        myAdapter = new FlyOverRecyclerAdapter(this, flyOverObjectList);
         flyOverRecycler.setAdapter(myAdapter);
         flyOverRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
+    }
+
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        if (pos > 0 && pos != 5) {
+            numPassesDefault = false;
+        } else {
+            numPassesDefault = true;
+        }
+        numSelectedPasses.setSelection(pos);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        return;
     }
 
 }
