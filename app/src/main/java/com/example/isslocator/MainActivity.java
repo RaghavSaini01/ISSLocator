@@ -108,8 +108,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             LatLng loc = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
                             mainMap.addMarker(new MarkerOptions().position(loc));
 
-                            mainMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-
                         } catch (JSONException j) {
                             Toast.makeText(MainActivity.this, "JSON Field parsed incorrectly", Toast.LENGTH_LONG).show();
                         }
@@ -117,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Request failed; check internet connection", Toast.LENGTH_LONG).show();
+                error.printStackTrace();
             }
         });
 

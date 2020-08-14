@@ -74,6 +74,7 @@ public class AstroInfoActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
                 Toast.makeText(AstroInfoActivity.this, "Request failed; check internet connection", Toast.LENGTH_LONG).show();
             }
         });
