@@ -1,4 +1,4 @@
-package com.example.isslocator;
+package com.example.isslocator.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +19,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.isslocator.R;
+import com.example.isslocator.adapters.FlyOverRecyclerAdapter;
+import com.example.isslocator.data.FlyOverData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,7 +125,7 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
 
                             for (int i = 0; i < flyOverList.length(); i++) {
                                 JSONObject flyOverResponse = flyOverList.getJSONObject(i);
-                                FlyOverData flyOverObject = new FlyOverData();
+                                FlyOverData flyOverObject = new FlyOverData("", "");
 
                                 int unixTime = flyOverResponse.getInt("risetime");
                                 Date d = new Date(unixTime * 1000L);
@@ -172,8 +175,6 @@ public class FlyOverISSActivity extends AppCompatActivity implements AdapterView
         numSelectedPasses.setSelection(pos);
     }
 
-    public void onNothingSelected(AdapterView<?> parent) {
-        return;
-    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 
 }

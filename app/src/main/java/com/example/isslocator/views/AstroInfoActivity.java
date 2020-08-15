@@ -1,4 +1,4 @@
-package com.example.isslocator;
+package com.example.isslocator.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +15,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.isslocator.R;
+import com.example.isslocator.adapters.AstroInfoRecyclerAdapter;
+import com.example.isslocator.data.AstroInfoData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,7 +95,7 @@ public class AstroInfoActivity extends AppCompatActivity {
 
                             for (int i = 0; i < astros.length(); i++) {
                                 JSONObject astro = astros.getJSONObject(i);
-                                AstroInfoData astronaut = new AstroInfoData();
+                                AstroInfoData astronaut = new AstroInfoData("", "");
                                 astronaut.setName(astro.getString("name"));
                                 String[] splitAstroName = astro.getString("name").split(" ");
                                 astronaut.setLink("https://en.wikipedia.org/wiki/" + splitAstroName[0] +

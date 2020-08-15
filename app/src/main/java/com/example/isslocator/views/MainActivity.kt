@@ -1,9 +1,8 @@
-package com.example.isslocator
+package com.example.isslocator.views
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +12,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.isslocator.R
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -26,25 +26,25 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private var runnable: Runnable? = null
     private var issMap: SupportMapFragment? = null
     private var mainMap: GoogleMap? = null
-    private val URL = "http://api.open-notify.org/iss-now.json"
+    private val url = "http://api.open-notify.org/iss-now.json"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         latText = findViewById(R.id.lat_disp)
         longText = findViewById(R.id.long_disp)
-        queue = Volley.newRequestQueue(this@MainActivity)
+        queue = Volley.newRequestQueue(applicationContext)
         val toFlyover: Button = findViewById(R.id.go_to_flyover)
         val toAstros: Button = findViewById(R.id.go_to_astros)
         issMap = supportFragmentManager.findFragmentById(R.id.iss_map) as SupportMapFragment?
         issMap!!.getMapAsync(this)
-        toFlyover.setOnClickListener(View.OnClickListener {
-            val toPassOver = Intent(this@MainActivity, FlyOverISSActivity::class.java)
+        toFlyover.setOnClickListener {
+            val toPassOver = Intent(applicationContext, FlyOverISSActivity::class.java)
             startActivity(toPassOver)
-        })
-        toAstros.setOnClickListener(View.OnClickListener {
-            val toAstroInfo = Intent(this@MainActivity, AstroInfoActivity::class.java)
+        }
+        toAstros.setOnClickListener {
+            val toAstroInfo = Intent(applicationContext, AstroInfoActivity::class.java)
             startActivity(toAstroInfo)
-        })
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun updateLocation() {
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, URL, null,
+        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
                 Response.Listener { response ->
                     val longitude: String
                     val latitude: String
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         mainMap!!.addMarker(MarkerOptions().position(loc))
                         mainMap!!.moveCamera(CameraUpdateFactory.newLatLng(loc))
                     } catch (j: JSONException) {
-                        Toast.makeText(this@MainActivity, "JSON Field parsed incorrectly", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, "JSON Field parsed incorrectly", Toast.LENGTH_LONG).show()
                     }
                 }, Response.ErrorListener { error -> error.printStackTrace() })
         queue!!.add(jsonObjectRequest)

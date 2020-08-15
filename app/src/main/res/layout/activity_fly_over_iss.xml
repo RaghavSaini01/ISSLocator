@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#37474f"
-    tools:context=".FlyOverISSActivity">
+    tools:context=".views.FlyOverISSActivity">
 
     <Button
         android:id="@+id/calc_flyover_button"
