@@ -2,7 +2,6 @@ package com.example.isslocator;
 
 
 public class FlyOverData {
-    /** deez */
     private String duration;
     private String riseTime;
 
